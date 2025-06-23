@@ -1,0 +1,103 @@
+{
+  "folderUid": "application-quality-service",
+  "overwrite": false,
+  "dashboard": {
+    "editable": true,
+    "links": [
+      {
+        "asDropdown": false,
+        "icon": "dashboard",
+        "includeVars": true,
+        "keepTime": false,
+        "tags": [],
+        "targetBlank": false,
+        "title": "Pipeline Executions",
+        "tooltip": "Open the pipeline executions dashboard",
+        "type": "link",
+        "url": "/d/pipeline-executions/pipeline-executions"
+      }
+    ],
+    "panels": [
+      {
+        "fieldConfig": {
+          "defaults": {},
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 4,
+          "w": 11,
+          "x": 0,
+          "y": 0
+        },
+        "id": 1,
+        "options": {
+          "code": {
+            "language": "plaintext",
+            "showLineNumbers": false,
+            "showMiniMap": false
+          },
+          "content": "# Pipeline Execution\n\n* Pipeline: **${pipeline_id}**\n* Execution: **${execution_id}**",
+          "mode": "markdown"
+        },
+        "pluginVersion": "12.0.0",
+        "title": "",
+        "transparent": true,
+        "type": "text"
+      },
+      {
+        "gridPos": {
+          "h": 8,
+          "w": 24,
+          "x": 0,
+          "y": 4
+        },
+        "id": 2,
+        "libraryPanel": {
+          "name": "Pipeline Execution Reports List",
+          "uid": "pipeline-executions-report-list"
+        },
+        "title": "Pipeline Execution Reports",
+        "type": "library-panel-ref"
+      }
+    ],
+    "preload": false,
+    "schemaVersion": 41,
+    "tags": [],
+    "templating": {
+      "list": [
+        {
+          "allowCustomValue": false,
+          "current": {
+            "text": "Python pipeline",
+            "value": "Python pipeline"
+          },
+          "hide": 2,
+          "label": "Pipeline ID",
+          "name": "pipeline_id",
+          "options": [],
+          "query": "",
+          "type": "custom"
+        },
+        {
+          "allowCustomValue": false,
+          "current": {
+            "text": "1",
+            "value": "1"
+          },
+          "hide": 2,
+          "label": "Execution ID",
+          "name": "execution_id",
+          "options": [],
+          "query": "",
+          "type": "custom"
+        }
+      ]
+    },
+    "timepicker": {
+      "hidden": true
+    },
+    "timezone": "browser",
+    "title": "Pipeline Execution",
+    "uid": "pipeline-execution"
+  }
+}

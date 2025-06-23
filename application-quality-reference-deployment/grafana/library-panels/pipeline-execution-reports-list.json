@@ -1,7 +1,7 @@
 {
   "folderUid": "application-quality-service",
-  "uid": "pipeline-executions-list",
-  "name": "Pipeline Executions List",
+  "uid": "pipeline-executions-report-list",
+  "name": "Pipeline Execution Reports List",
   "kind": 1,
   "type": "table",
   "description": "",
@@ -23,15 +23,17 @@
           },
           "inspect": false
         },
-        "links": [],
         "mappings": [],
-        "noValue": "No pipeline executions found in the selected date range",
         "thresholds": {
           "mode": "absolute",
           "steps": [
             {
               "color": "green",
               "value": null
+            },
+            {
+              "color": "red",
+              "value": 80
             }
           ]
         }
@@ -47,39 +49,47 @@
               "id": "links",
               "value": [
                 {
-                  "targetBlank": false,
-                  "title": "Details",
-                  "url": "/d/pipeline-execution/pipeline-execution?from=now-6h&to=now&timezone=browser&var-report_id=&var-execution_id=${__data.fields.Links}&var-pipeline_id=${__data.fields[\"Pipeline name\"]}"
+                  "title": "Report",
+                  "url": "/d/pipeline-execution-report/pipeline-execution-report?from=now-6h&to=now&timezone=browser&${__all_variables}﻿&var-report_id=﻿${__data.fields.Links}"
                 }
               ]
+            },
+            {
+              "id": "custom.align",
+              "value": "left"
             },
             {
               "id": "custom.cellOptions",
               "value": {
                 "type": "data-links"
               }
-            },
-            {
-              "id": "custom.align",
-              "value": "left"
             }
           ]
         },
         {
           "matcher": {
             "id": "byName",
-            "options": "pipeline_name"
+            "options": "id_2"
           },
           "properties": [
             {
               "id": "links",
               "value": [
                 {
-                  "targetBlank": true,
-                  "title": "Pipeline details",
-                  "url": "https://www.google.com/search?q=pipeline-${__data.fields[\"Pipeline name\"]}"
+                  "title": "Report ${__data.fields.Tool}",
+                  "url": "/d/default-${__data.fields.Tool}-report/${__data.fields.Tool}-report?${__all_variables}﻿&var-report_id=﻿${__data.fields.Links}&var-tool_name=${__data.fields.Tool}"
                 }
               ]
+            },
+            {
+              "id": "custom.align",
+              "value": "left"
+            },
+            {
+              "id": "custom.cellOptions",
+              "value": {
+                "type": "data-links"
+              }
             }
           ]
         }
@@ -95,62 +105,53 @@
         ],
         "show": false
       },
-      "showHeader": true,
-      "sortBy": []
+      "showHeader": true
     },
     "pluginVersion": "12.0.0",
     "targets": [
       {
         "datasource": {
           "type": "grafana-postgresql-datasource",
-          "uid": "application-quality-db"
+          "uid": "cemwefy03fvgga"
         },
-        "editorMode": "builder",
+        "editorMode": "code",
         "format": "table",
-        "rawSql": "SELECT pipeline_name, start_time, completion_time, status, id FROM executions_admin WHERE $__timeFilter(start_time) ORDER BY start_time LIMIT null ",
+        "rawQuery": true,
+        "rawSql": "SELECT\n  id,\n  id as id_2,\n  name,\n  created_at,\n  started_by_id,\n  run_id\nFROM\n  reports_admin\nWHERE\n  run_id = ${execution_id:int}",
         "refId": "A",
         "sql": {
           "columns": [
             {
               "parameters": [
                 {
-                  "name": "pipeline_name",
-                  "type": "functionParameter"
-                }
-              ],
-              "type": "function"
-            },
-            {
-              "parameters": [
-                {
-                  "name": "start_time",
-                  "type": "functionParameter"
-                }
-              ],
-              "type": "function"
-            },
-            {
-              "parameters": [
-                {
-                  "name": "completion_time",
-                  "type": "functionParameter"
-                }
-              ],
-              "type": "function"
-            },
-            {
-              "parameters": [
-                {
-                  "name": "status",
-                  "type": "functionParameter"
-                }
-              ],
-              "type": "function"
-            },
-            {
-              "parameters": [
-                {
                   "name": "id",
+                  "type": "functionParameter"
+                }
+              ],
+              "type": "function"
+            },
+            {
+              "parameters": [
+                {
+                  "name": "name",
+                  "type": "functionParameter"
+                }
+              ],
+              "type": "function"
+            },
+            {
+              "parameters": [
+                {
+                  "name": "created_at",
+                  "type": "functionParameter"
+                }
+              ],
+              "type": "function"
+            },
+            {
+              "parameters": [
+                {
+                  "name": "started_by_id",
                   "type": "functionParameter"
                 }
               ],
@@ -165,104 +166,64 @@
               "type": "groupBy"
             }
           ],
-          "limit": null,
-          "orderBy": {
-            "property": {
-              "name": [
-                "start_time"
-              ],
-              "type": "string"
-            },
-            "type": "property"
-          },
+          "limit": 50,
           "whereJsonTree": {
             "children1": [
               {
-                "id": "bb8aaa89-cdef-4012-b456-719712903b33",
+                "id": "9a9aaaa9-cdef-4012-b456-719720c91ddc",
                 "properties": {
-                  "field": "start_time",
+                  "field": "run_id",
                   "fieldSrc": "field",
-                  "operator": "macros",
+                  "operator": "equal",
                   "value": [
-                    "timeFilter"
-                  ],
-                  "valueError": [
                     null
                   ],
                   "valueSrc": [
                     "value"
                   ],
                   "valueType": [
-                    "datetime"
+                    "number"
                   ]
                 },
                 "type": "rule"
               }
             ],
-            "id": "9b98988b-0123-4456-b89a-b197128fb9b8",
+            "id": "bbbb8889-0123-4456-b89a-b19720c68584",
             "type": "group"
-          },
-          "whereString": "$__timeFilter(start_time)"
+          }
         },
-        "table": "executions_admin"
+        "table": "reports_admin"
       }
     ],
-    "title": "Pipeline Executions",
+    "title": "Pipeline Execution Reports",
     "transformations": [
       {
         "id": "organize",
         "options": {
           "excludeByName": {
-            "id": false
+            "id": false,
+            "run_id": true,
+            "started_by_id": true
           },
           "includeByName": {},
           "indexByName": {
-            "completion_time": 2,
+            "created_at": 2,
             "id": 4,
-            "pipeline_name": 0,
-            "start_time": 1,
-            "status": 3
+            "name": 0,
+            "run_id": 3,
+            "started_by_id": 1
           },
           "renameByName": {
-            "completion_time": "End time",
+            "created_at": "Started",
             "id": "Links",
-            "pipeline_name": "Pipeline name",
-            "start_time": "Start time",
-            "status": "Status"
+            "id_2": "Reports",
+            "name": "Tool",
+            "run_id": "Executions",
+            "started_by_id": "User"
           }
-        }
-      },
-      {
-        "id": "sortBy",
-        "options": {
-          "fields": {},
-          "sort": [
-            {
-              "desc": true,
-              "field": "Start time"
-            }
-          ]
         }
       }
     ],
     "type": "table"
-  },
-  "version": 16,
-  "meta": {
-    "folderName": "Application Quality Service",
-    "folderUid": "application-quality-service",
-    "connectedDashboards": 1,
-    "created": "2025-05-27T16:05:12Z",
-    "updated": "2025-06-10T13:05:23Z",
-    "createdBy": {
-      "id": 1,
-      "name": "admin",
-      "avatarUrl": "/avatar/46d229b033af06a191ff2267bca9ae56"
-    },
-    "updatedBy": {
-      "id": 1,
-      "name": "admin",
-      "avatarUrl": "/avatar/46d229b033af06a191ff2267bca9ae56"
-    }
   }
 }
