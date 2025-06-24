@@ -1,0 +1,202 @@
+{
+  "folderUid": "application-quality-service",
+  "uid": "pipeline-inputs",
+  "name": "Pipeline inputs",
+  "kind": 1,
+  "type": "table",
+  "description": "",
+  "model": {
+    "datasource": {
+      "type": "grafana-postgresql-datasource",
+      "uid": "application-quality-db"
+    },
+    "description": "",
+    "fieldConfig": {
+      "defaults": {
+        "color": {
+          "mode": "thresholds"
+        },
+        "custom": {
+          "align": "auto",
+          "cellOptions": {
+            "type": "auto"
+          },
+          "filterable": false,
+          "inspect": false
+        },
+        "mappings": [],
+        "thresholds": {
+          "mode": "absolute",
+          "steps": [
+            {
+              "color": "green",
+              "value": null
+            },
+            {
+              "color": "red",
+              "value": 80
+            }
+          ]
+        }
+      },
+      "overrides": [
+        {
+          "matcher": {
+            "id": "byName",
+            "options": "inputs"
+          },
+          "properties": [
+            {
+              "id": "custom.cellOptions",
+              "value": {
+                "type": "json-view"
+              }
+            },
+            {
+              "id": "custom.inspect",
+              "value": true
+            }
+          ]
+        },
+        {
+          "matcher": {
+            "id": "byName",
+            "options": "Value"
+          },
+          "properties": [
+            {
+              "id": "displayName",
+              "value": "Value"
+            }
+          ]
+        }
+      ]
+    },
+    "gridPos": {
+      "h": 5,
+      "w": 14,
+      "x": 10,
+      "y": 0
+    },
+    "id": 3,
+    "options": {
+      "cellHeight": "sm",
+      "footer": {
+        "countRows": false,
+        "fields": "",
+        "reducer": [
+          "sum"
+        ],
+        "show": false
+      },
+      "showHeader": true,
+      "sortBy": [
+        {
+          "desc": false,
+          "displayName": "Input"
+        }
+      ]
+    },
+    "pluginVersion": "12.0.1",
+    "targets": [
+      {
+        "datasource": {
+          "type": "grafana-postgresql-datasource",
+          "uid": "application-quality-db"
+        },
+        "editorMode": "builder",
+        "format": "table",
+        "rawSql": "SELECT * FROM backend_pipelinerun ",
+        "refId": "A",
+        "sql": {
+          "columns": [
+            {
+              "parameters": [
+                {
+                  "name": "*",
+                  "type": "functionParameter"
+                }
+              ],
+              "type": "function"
+            }
+          ],
+          "groupBy": [
+            {
+              "property": {
+                "type": "string"
+              },
+              "type": "groupBy"
+            }
+          ]
+        },
+        "table": "backend_pipelinerun"
+      }
+    ],
+    "title": "Pipeline inputs",
+    "transformations": [
+      {
+        "id": "filterByValue",
+        "options": {
+          "filters": [
+            {
+              "config": {
+                "id": "equal",
+                "options": {
+                  "value": "${run_id}"
+                }
+              },
+              "fieldName": "id"
+            }
+          ],
+          "match": "any",
+          "type": "include"
+        }
+      },
+      {
+        "id": "filterByValue",
+        "options": {
+          "filters": [
+            {
+              "config": {
+                "id": "isNull",
+                "options": {}
+              },
+              "fieldName": "inputs"
+            }
+          ],
+          "match": "any",
+          "type": "exclude"
+        }
+      },
+      {
+        "id": "filterFieldsByName",
+        "options": {
+          "include": {
+            "names": [
+              "inputs"
+            ]
+          }
+        }
+      },
+      {
+        "id": "extractFields",
+        "options": {
+          "delimiter": ",",
+          "format": "auto",
+          "keepTime": false,
+          "replace": true,
+          "source": "inputs"
+        }
+      },
+      {
+        "id": "transpose",
+        "options": {
+          "firstFieldName": "Input",
+          "restFieldsName": ""
+        }
+      }
+    ],
+    "transparent": true,
+    "type": "table"
+  }
+}

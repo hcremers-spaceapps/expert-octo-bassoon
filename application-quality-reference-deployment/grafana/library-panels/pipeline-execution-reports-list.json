@@ -42,41 +42,14 @@
         {
           "matcher": {
             "id": "byName",
-            "options": "id"
+            "options": "Link"
           },
           "properties": [
             {
               "id": "links",
               "value": [
                 {
-                  "title": "Report",
-                  "url": "/d/pipeline-execution-report/pipeline-execution-report?from=now-6h&to=now&timezone=browser&${__all_variables}﻿&var-report_id=﻿${__data.fields.Links}"
-                }
-              ]
-            },
-            {
-              "id": "custom.align",
-              "value": "left"
-            },
-            {
-              "id": "custom.cellOptions",
-              "value": {
-                "type": "data-links"
-              }
-            }
-          ]
-        },
-        {
-          "matcher": {
-            "id": "byName",
-            "options": "id_2"
-          },
-          "properties": [
-            {
-              "id": "links",
-              "value": [
-                {
-                  "title": "Report ${__data.fields.Tool}",
+                  "title": "Go to report",
                   "url": "/d/default-${__data.fields.Tool}-report/${__data.fields.Tool}-report?${__all_variables}﻿&var-report_id=﻿${__data.fields.Links}&var-tool_name=${__data.fields.Tool}"
                 }
               ]
@@ -107,30 +80,23 @@
       },
       "showHeader": true
     },
-    "pluginVersion": "12.0.0",
+    "pluginVersion": "12.0.1",
     "targets": [
       {
         "datasource": {
           "type": "grafana-postgresql-datasource",
-          "uid": "cemwefy03fvgga"
+          "uid": "application-quality-db"
         },
         "editorMode": "code",
         "format": "table",
+        "hide": false,
         "rawQuery": true,
-        "rawSql": "SELECT\n  id,\n  id as id_2,\n  name,\n  created_at,\n  started_by_id,\n  run_id\nFROM\n  reports_admin\nWHERE\n  run_id = ${execution_id:int}",
+        "rawSql": "SELECT name AS \"Tool\", created_at AS \"Output creation\", id AS \"Link\" FROM reports_admin WHERE run_id = $run_id LIMIT 50 ",
         "refId": "A",
         "sql": {
           "columns": [
             {
-              "parameters": [
-                {
-                  "name": "id",
-                  "type": "functionParameter"
-                }
-              ],
-              "type": "function"
-            },
-            {
+              "alias": "\"Name\"",
               "parameters": [
                 {
                   "name": "name",
@@ -140,6 +106,7 @@
               "type": "function"
             },
             {
+              "alias": "\"Output creation\"",
               "parameters": [
                 {
                   "name": "created_at",
@@ -149,9 +116,10 @@
               "type": "function"
             },
             {
+              "alias": "\"Link\"",
               "parameters": [
                 {
-                  "name": "started_by_id",
+                  "name": "id",
                   "type": "functionParameter"
                 }
               ],
@@ -170,12 +138,15 @@
           "whereJsonTree": {
             "children1": [
               {
-                "id": "9a9aaaa9-cdef-4012-b456-719720c91ddc",
+                "id": "999b8aa9-cdef-4012-b456-7197a2227454",
                 "properties": {
                   "field": "run_id",
                   "fieldSrc": "field",
                   "operator": "equal",
                   "value": [
+                    2
+                  ],
+                  "valueError": [
                     null
                   ],
                   "valueSrc": [
@@ -188,42 +159,15 @@
                 "type": "rule"
               }
             ],
-            "id": "bbbb8889-0123-4456-b89a-b19720c68584",
+            "id": "8abb8b8a-0123-4456-b89a-b197a20c2547",
             "type": "group"
-          }
+          },
+          "whereString": "run_id = 2"
         },
         "table": "reports_admin"
       }
     ],
     "title": "Pipeline Execution Reports",
-    "transformations": [
-      {
-        "id": "organize",
-        "options": {
-          "excludeByName": {
-            "id": false,
-            "run_id": true,
-            "started_by_id": true
-          },
-          "includeByName": {},
-          "indexByName": {
-            "created_at": 2,
-            "id": 4,
-            "name": 0,
-            "run_id": 3,
-            "started_by_id": 1
-          },
-          "renameByName": {
-            "created_at": "Started",
-            "id": "Links",
-            "id_2": "Reports",
-            "name": "Tool",
-            "run_id": "Executions",
-            "started_by_id": "User"
-          }
-        }
-      }
-    ],
     "type": "table"
   }
 }

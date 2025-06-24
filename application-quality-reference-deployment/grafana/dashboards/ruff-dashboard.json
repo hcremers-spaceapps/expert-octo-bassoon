@@ -1,0 +1,61 @@
+{
+  "folderUid": "application-quality-service-reports",
+  "overwrite": false,
+  "dashboard": {
+    "editable": true,
+    "links": [],
+    "panels": [
+      {
+        "gridPos": {
+          "h": 10,
+          "w": 24,
+          "x": 0,
+          "y": 0
+        },
+        "id": 1,
+        "libraryPanel": {
+          "name": "Ruff report",
+          "uid": "ruff-report"
+        },
+        "title": "Ruff report",
+        "type": "library-panel-ref"
+      }
+    ],
+    "preload": false,
+    "schemaVersion": 41,
+    "tags": [],
+    "templating": {
+      "list": [
+        {
+          "current": {
+            "text": "2",
+            "value": "2"
+          },
+          "description": "",
+          "label": "Run ID",
+          "name": "run_id",
+          "options": [
+            {
+              "selected": false,
+              "text": "1",
+              "value": "1"
+            },
+            {
+              "selected": true,
+              "text": "2",
+              "value": "2"
+            }
+          ],
+          "query": "1,2",
+          "type": "custom"
+        }
+      ]
+    },
+    "timepicker": {
+      "hidden": true
+    },
+    "timezone": "browser",
+    "title": "Ruff",
+    "uid": "ruff-dashboard"
+  }
+}

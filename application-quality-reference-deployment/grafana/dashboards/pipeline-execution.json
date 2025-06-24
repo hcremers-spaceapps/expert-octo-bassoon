@@ -24,8 +24,8 @@
           "overrides": []
         },
         "gridPos": {
-          "h": 4,
-          "w": 11,
+          "h": 6,
+          "w": 9,
           "x": 0,
           "y": 0
         },
@@ -36,20 +36,35 @@
             "showLineNumbers": false,
             "showMiniMap": false
           },
-          "content": "# Pipeline Execution\n\n* Pipeline: **${pipeline_id}**\n* Execution: **${execution_id}**",
+          "content": "# Pipeline Execution\n\n* Pipeline: **${pipeline_id}**\n* Execution: **${run_id}**",
           "mode": "markdown"
         },
-        "pluginVersion": "12.0.0",
+        "pluginVersion": "12.0.1",
         "title": "",
         "transparent": true,
         "type": "text"
       },
       {
         "gridPos": {
-          "h": 8,
+          "h": 6,
+          "w": 15,
+          "x": 9,
+          "y": 0
+        },
+        "id": 3,
+        "libraryPanel": {
+          "name": "Pipeline inputs",
+          "uid": "piepeline-inputs"
+        },
+        "title": "Pipeline inputs",
+        "type": "library-panel-ref"
+      },
+      {
+        "gridPos": {
+          "h": 6,
           "w": 24,
           "x": 0,
-          "y": 4
+          "y": 6
         },
         "id": 2,
         "libraryPanel": {
@@ -57,6 +72,36 @@
           "uid": "pipeline-executions-report-list"
         },
         "title": "Pipeline Execution Reports",
+        "type": "library-panel-ref"
+      },
+      {
+        "gridPos": {
+          "h": 8,
+          "w": 12,
+          "x": 0,
+          "y": 12
+        },
+        "id": 4,
+        "libraryPanel": {
+          "name": "Usage report per metric",
+          "uid": "usage-report-per-metric"
+        },
+        "title": "Usage report per metric",
+        "type": "library-panel-ref"
+      },
+      {
+        "gridPos": {
+          "h": 8,
+          "w": 12,
+          "x": 12,
+          "y": 12
+        },
+        "id": 5,
+        "libraryPanel": {
+          "name": "Usage report per tool",
+          "uid": "usage-report-per-tool"
+        },
+        "title": "Usage report per tool",
         "type": "library-panel-ref"
       }
     ],
@@ -85,8 +130,8 @@
             "value": "1"
           },
           "hide": 2,
-          "label": "Execution ID",
-          "name": "execution_id",
+          "label": "Run ID",
+          "name": "run_id",
           "options": [],
           "query": "",
           "type": "custom"

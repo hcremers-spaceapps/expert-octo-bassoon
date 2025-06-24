@@ -1,0 +1,138 @@
+{
+  "folderUid": "application-quality-service-reports",
+  "uid": "pylint-report",
+  "name": "Pylint report",
+  "kind": 1,
+  "type": "table",
+  "description": "",
+  "model": {
+    "datasource": {
+      "type": "grafana-postgresql-datasource",
+      "uid": "application-quality-db"
+    },
+    "description": "",
+    "fieldConfig": {
+      "defaults": {
+        "color": {
+          "mode": "thresholds"
+        },
+        "custom": {
+          "align": "auto",
+          "cellOptions": {
+            "type": "auto"
+          },
+          "inspect": false
+        },
+        "mappings": [],
+        "thresholds": {
+          "mode": "absolute",
+          "steps": [
+            {
+              "color": "green",
+              "value": null
+            },
+            {
+              "color": "red",
+              "value": 80
+            }
+          ]
+        }
+      },
+      "overrides": [
+        {
+          "matcher": {
+            "id": "byName",
+            "options": "code"
+          },
+          "properties": [
+            {
+              "id": "custom.width",
+              "value": 80
+            }
+          ]
+        },
+        {
+          "matcher": {
+            "id": "byName",
+            "options": "location"
+          },
+          "properties": [
+            {
+              "id": "custom.width",
+              "value": 120
+            }
+          ]
+        },
+        {
+          "matcher": {
+            "id": "byName",
+            "options": "object"
+          },
+          "properties": [
+            {
+              "id": "custom.width",
+              "value": 200
+            }
+          ]
+        }
+      ]
+    },
+    "gridPos": {
+      "h": 9,
+      "w": 24,
+      "x": 0,
+      "y": 0
+    },
+    "id": 1,
+    "libraryPanel": {
+      "name": "Pylint report",
+      "uid": "cepx84pbevjswe"
+    },
+    "options": {
+      "cellHeight": "sm",
+      "footer": {
+        "countRows": false,
+        "fields": "",
+        "reducer": [
+          "sum"
+        ],
+        "show": false
+      },
+      "showHeader": true,
+      "sortBy": []
+    },
+    "pluginVersion": "12.0.1",
+    "targets": [
+      {
+        "datasource": {
+          "type": "grafana-postgresql-datasource",
+          "uid": "application-quality-db"
+        },
+        "editorMode": "code",
+        "format": "table",
+        "rawQuery": true,
+        "rawSql": "SELECT\n  elem ->> 'path' AS path,\n  elem ->> 'obj' AS object,\n  elem ->> 'message' AS message,\n  elem ->> 'message-id' AS code,\n  'L' || (elem ->> 'line') || 'C' || (elem ->> 'column') || CASE\n    WHEN elem ->> 'endLine' IS NOT NULL\n    AND elem ->> 'endColumn' IS NOT NULL THEN '-L' || (elem ->> 'endLine') || 'C' || (elem ->> 'endColumn')\n    ELSE ''\n  END AS location\nFROM\n  (\n    SELECT\n      jsonb_array_elements(output :: jsonb) AS elem\n    FROM\n      reports_admin \n    WHERE\n      name = 'pylint'\n      AND run_id = ${run_id}\n  ) AS sub;",
+        "refId": "A",
+        "sql": {
+          "columns": [
+            {
+              "parameters": [],
+              "type": "function"
+            }
+          ],
+          "groupBy": [
+            {
+              "property": {
+                "type": "string"
+              },
+              "type": "groupBy"
+            }
+          ],
+          "limit": 50
+        }
+      }
+    ],
+    "title": "Pylint report",
+    "type": "table"
+  }
+}

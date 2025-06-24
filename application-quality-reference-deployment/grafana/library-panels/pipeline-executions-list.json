@@ -246,23 +246,5 @@
       }
     ],
     "type": "table"
-  },
-  "version": 16,
-  "meta": {
-    "folderName": "Application Quality Service",
-    "folderUid": "application-quality-service",
-    "connectedDashboards": 1,
-    "created": "2025-05-27T16:05:12Z",
-    "updated": "2025-06-10T13:05:23Z",
-    "createdBy": {
-      "id": 1,
-      "name": "admin",
-      "avatarUrl": "/avatar/46d229b033af06a191ff2267bca9ae56"
-    },
-    "updatedBy": {
-      "id": 1,
-      "name": "admin",
-      "avatarUrl": "/avatar/46d229b033af06a191ff2267bca9ae56"
-    }
   }
 }
