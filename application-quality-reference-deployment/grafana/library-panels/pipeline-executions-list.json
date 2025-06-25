@@ -40,7 +40,7 @@
         {
           "matcher": {
             "id": "byName",
-            "options": "id"
+            "options": "Links"
           },
           "properties": [
             {
@@ -49,7 +49,7 @@
                 {
                   "targetBlank": false,
                   "title": "Details",
-                  "url": "/d/pipeline-execution/pipeline-execution?from=now-6h&to=now&timezone=browser&var-report_id=&var-execution_id=${__data.fields.Links}&var-pipeline_id=${__data.fields[\"Pipeline name\"]}"
+                  "url": "/d/pipeline-execution/pipeline-execution?var-run_id=${__data.fields.Links}"
                 }
               ]
             },
@@ -62,24 +62,6 @@
             {
               "id": "custom.align",
               "value": "left"
-            }
-          ]
-        },
-        {
-          "matcher": {
-            "id": "byName",
-            "options": "pipeline_name"
-          },
-          "properties": [
-            {
-              "id": "links",
-              "value": [
-                {
-                  "targetBlank": true,
-                  "title": "Pipeline details",
-                  "url": "https://www.google.com/search?q=pipeline-${__data.fields[\"Pipeline name\"]}"
-                }
-              ]
             }
           ]
         }
@@ -98,7 +80,7 @@
       "showHeader": true,
       "sortBy": []
     },
-    "pluginVersion": "12.0.0",
+    "pluginVersion": "12.0.1",
     "targets": [
       {
         "datasource": {

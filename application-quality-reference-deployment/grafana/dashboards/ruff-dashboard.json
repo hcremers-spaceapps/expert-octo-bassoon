@@ -3,7 +3,20 @@
   "overwrite": false,
   "dashboard": {
     "editable": true,
-    "links": [],
+  "links": [
+    {
+      "asDropdown": false,
+      "icon": "dashboard",
+      "includeVars": true,
+      "keepTime": false,
+      "tags": [],
+      "targetBlank": false,
+      "title": "Pipeline Run ${run_id}",
+      "tooltip": "Go to pipeline run ${run_id} dashboard",
+      "type": "link",
+      "url": "/d/pipeline-execution/pipeline-execution?${__all_values}"
+    }
+  ],
     "panels": [
       {
         "gridPos": {
@@ -28,25 +41,25 @@
       "list": [
         {
           "current": {
-            "text": "2",
-            "value": "2"
+          "text": "1",
+          "value": "1"
           },
           "description": "",
           "label": "Run ID",
           "name": "run_id",
           "options": [
             {
-              "selected": false,
+            "selected": true,
               "text": "1",
               "value": "1"
             },
             {
-              "selected": true,
+            "selected": false,
               "text": "2",
               "value": "2"
             }
           ],
-          "query": "1,2",
+          "query": "1, 2",
           "type": "custom"
         }
       ]
