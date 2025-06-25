@@ -54,7 +54,7 @@
         "id": 3,
         "libraryPanel": {
           "name": "Pipeline inputs",
-          "uid": "piepeline-inputs"
+          "uid": "pipeline-inputs"
         },
         "title": "Pipeline inputs",
         "type": "library-panel-ref"
