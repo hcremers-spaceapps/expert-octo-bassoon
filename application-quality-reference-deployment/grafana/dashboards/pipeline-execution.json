@@ -126,10 +126,6 @@
     "templating": {
       "list": [
         {
-          "current": {
-            "text": "Python pipeline",
-            "value": "Python pipeline"
-          },
           "definition": "SELECT pipeline_name FROM executions_admin WHERE id = $run_id",
           "hide": 2,
           "label": "Pipeline ID",
@@ -141,10 +137,6 @@
           "type": "query"
         },
         {
-          "current": {
-            "text": "2",
-            "value": "2"
-          },
           "definition": "SELECT id FROM executions_admin WHERE id IS NOT NULL ",
           "label": "Run ID",
           "name": "run_id",
@@ -152,7 +144,7 @@
           "query": "SELECT id FROM executions_admin WHERE id IS NOT NULL ",
           "refresh": 1,
           "regex": "",
-          "sort": 3,
+          "sort": 4,
           "type": "query"
         }
       ]

@@ -40,10 +40,6 @@
     "templating": {
       "list": [
         {
-          "current": {
-            "text": "1",
-            "value": "1"
-          },
           "definition": "SELECT run_id FROM reports_admin WHERE name = 'ruff'",
           "label": "Run ID",
           "name": "run_id",
@@ -51,7 +47,7 @@
           "query": "SELECT run_id FROM reports_admin WHERE name = 'ruff'",
           "refresh": 1,
           "regex": "",
-          "sort": 3,
+          "sort": 4,
           "type": "query"
         }
       ]
