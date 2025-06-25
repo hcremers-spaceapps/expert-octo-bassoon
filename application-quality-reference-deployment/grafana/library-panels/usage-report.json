@@ -1,0 +1,266 @@
+{
+  "folderUid": "application-quality-service",
+  "uid": "pipeline-usage-report",
+  "name": "Pipeline usage report",
+  "kind": 1,
+  "type": "table",
+  "description": "",
+  "model": {
+    "datasource": {
+      "type": "grafana-postgresql-datasource",
+      "uid": "application-quality-db"
+    },
+    "description": "",
+    "fieldConfig": {
+      "defaults": {
+        "color": {
+          "mode": "thresholds"
+        },
+        "custom": {
+          "align": "auto",
+          "cellOptions": {
+            "type": "auto"
+          },
+          "filterable": false,
+          "inspect": false
+        },
+        "mappings": [],
+        "thresholds": {
+          "mode": "absolute",
+          "steps": [
+            {
+              "color": "green",
+              "value": null
+            }
+          ]
+        }
+      },
+      "overrides": [
+        {
+          "matcher": {
+            "id": "byName",
+            "options": "elapsed_seconds"
+          },
+          "properties": [
+            {
+              "id": "unit",
+              "value": "s"
+            }
+          ]
+        },
+        {
+          "matcher": {
+            "id": "byName",
+            "options": "total_disk_megabytes"
+          },
+          "properties": [
+            {
+              "id": "unit",
+              "value": "decmbytes"
+            }
+          ]
+        },
+        {
+          "matcher": {
+            "id": "byName",
+            "options": "total_ram_megabyte_hours"
+          },
+          "properties": [
+            {
+              "id": "unit",
+              "value": "decmbytes"
+            }
+          ]
+        },
+        {
+          "matcher": {
+            "id": "byName",
+            "options": "max_parallel_ram_megabytes"
+          },
+          "properties": [
+            {
+              "id": "unit",
+              "value": "decmbytes"
+            }
+          ]
+        },
+        {
+          "matcher": {
+            "id": "byName",
+            "options": "ram_mb_allowed"
+          },
+          "properties": [
+            {
+              "id": "unit",
+              "value": "decmbytes"
+            }
+          ]
+        },
+        {
+          "matcher": {
+            "id": "byName",
+            "options": "total_cpu_hours"
+          },
+          "properties": [
+            {
+              "id": "unit",
+              "value": "h"
+            }
+          ]
+        },
+        {
+          "matcher": {
+            "id": "byName",
+            "options": "start_time"
+          },
+          "properties": [
+            {
+              "id": "unit",
+              "value": "dateTimeAsIsoNoDateIfToday"
+            }
+          ]
+        },
+        {
+          "matcher": {
+            "id": "byName",
+            "options": "finish_time"
+          },
+          "properties": [
+            {
+              "id": "unit",
+              "value": "dateTimeAsIsoNoDateIfToday"
+            }
+          ]
+        }
+      ]
+    },
+    "gridPos": {
+      "h": 4,
+      "w": 24,
+      "x": 0,
+      "y": 6
+    },
+    "id": 6,
+    "options": {
+      "cellHeight": "sm",
+      "footer": {
+        "countRows": false,
+        "fields": "",
+        "reducer": [
+          "sum"
+        ],
+        "show": false
+      },
+      "showHeader": true,
+      "sortBy": []
+    },
+    "pluginVersion": "12.0.1",
+    "targets": [
+      {
+        "datasource": {
+          "type": "grafana-postgresql-datasource",
+          "uid": "application-quality-db"
+        },
+        "editorMode": "code",
+        "format": "table",
+        "rawQuery": true,
+        "rawSql": "SELECT\n  -- 'Value' AS \"Metric\",\n  usage_report\nFROM\n  executions_admin\nWHERE\n  id = $run_id",
+        "refId": "A",
+        "sql": {
+          "columns": [
+            {
+              "parameters": [
+                {
+                  "name": "usage_report",
+                  "type": "functionParameter"
+                }
+              ],
+              "type": "function"
+            }
+          ],
+          "groupBy": [
+            {
+              "property": {
+                "type": "string"
+              },
+              "type": "groupBy"
+            }
+          ],
+          "limit": 50,
+          "whereJsonTree": {
+            "children1": [
+              {
+                "id": "aab8baa9-89ab-4cde-b012-3197a65a737f",
+                "properties": {
+                  "field": "id",
+                  "fieldSrc": "field",
+                  "operator": "equal",
+                  "value": [
+                    1
+                  ],
+                  "valueError": [
+                    null
+                  ],
+                  "valueSrc": [
+                    "value"
+                  ],
+                  "valueType": [
+                    "number"
+                  ]
+                },
+                "type": "rule"
+              }
+            ],
+            "id": "9b9b89ba-0123-4456-b89a-b197a63a721f",
+            "type": "group"
+          },
+          "whereString": "id = 1"
+        },
+        "table": "executions_admin"
+      }
+    ],
+    "title": "Usage report",
+    "transformations": [
+      {
+        "id": "extractFields",
+        "options": {
+          "delimiter": ",",
+          "format": "auto",
+          "keepTime": false,
+          "replace": false,
+          "source": "usage_report"
+        }
+      },
+      {
+        "id": "filterFieldsByName",
+        "options": {
+          "include": {
+            "names": [
+              "start_time",
+              "finish_time",
+              "total_tasks",
+              "cores_allowed",
+              "ram_mb_allowed",
+              "elapsed_seconds",
+              "total_cpu_hours",
+              "max_parallel_cpus",
+              "max_parallel_tasks",
+              "total_disk_megabytes",
+              "total_ram_megabyte_hours",
+              "max_parallel_ram_megabytes",
+              "Metric"
+            ]
+          }
+        }
+      },
+      {
+        "disabled": true,
+        "id": "transpose",
+        "options": {
+          "firstFieldName": "Metric"
+        }
+      }
+    ],
+    "type": "table"
+  }
+}

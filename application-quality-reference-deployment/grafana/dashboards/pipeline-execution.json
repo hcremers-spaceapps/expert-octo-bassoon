@@ -25,7 +25,7 @@
         },
         "gridPos": {
           "h": 6,
-          "w": 9,
+          "w": 7,
           "x": 0,
           "y": 0
         },
@@ -47,8 +47,8 @@
       {
         "gridPos": {
           "h": 6,
-          "w": 15,
-          "x": 9,
+          "w": 17,
+          "x": 7,
           "y": 0
         },
         "id": 3,
@@ -61,10 +61,25 @@
       },
       {
         "gridPos": {
-          "h": 6,
+          "h": 4,
           "w": 24,
           "x": 0,
           "y": 6
+        },
+        "id": 6,
+        "libraryPanel": {
+          "name": "Pipeline usage report",
+          "uid": "pipeline-usage-report"
+        },
+        "title": "Pipeline usage report",
+        "type": "library-panel-ref"
+      },
+      {
+        "gridPos": {
+          "h": 6,
+          "w": 24,
+          "x": 0,
+          "y": 10
         },
         "id": 2,
         "libraryPanel": {
@@ -79,7 +94,7 @@
           "h": 8,
           "w": 12,
           "x": 0,
-          "y": 12
+          "y": 16
         },
         "id": 4,
         "libraryPanel": {
@@ -94,7 +109,7 @@
           "h": 8,
           "w": 12,
           "x": 12,
-          "y": 12
+          "y": 16
         },
         "id": 5,
         "libraryPanel": {
