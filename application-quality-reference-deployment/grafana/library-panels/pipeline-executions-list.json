@@ -49,7 +49,7 @@
                 {
                   "targetBlank": false,
                   "title": "Details",
-                  "url": "/d/pipeline-execution/pipeline-execution?var-run_id=${__data.fields.Links}"
+                  "url": "/d/pipeline-execution/pipeline-execution?var-pipeline_id=${__data.fields[\"Pipeline name\"]}&var-run_id=${__data.fields.Links}"
                 }
               ]
             },

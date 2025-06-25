@@ -3,20 +3,20 @@
   "overwrite": false,
   "dashboard": {
     "editable": true,
-  "links": [
-    {
-      "asDropdown": false,
-      "icon": "dashboard",
-      "includeVars": true,
-      "keepTime": false,
-      "tags": [],
-      "targetBlank": false,
-      "title": "Pipeline Run ${run_id}",
-      "tooltip": "Go to pipeline run ${run_id} dashboard",
-      "type": "link",
-      "url": "/d/pipeline-execution/pipeline-execution?${__all_values}"
-    }
-  ],
+    "links": [
+      {
+        "asDropdown": false,
+        "icon": "dashboard",
+        "includeVars": true,
+        "keepTime": false,
+        "tags": [],
+        "targetBlank": false,
+        "title": "Pipeline Run ${run_id}",
+        "tooltip": "Go to pipeline run ${run_id} dashboard",
+        "type": "link",
+        "url": "/d/pipeline-execution/pipeline-execution?${__all_values}"
+      }
+    ],
     "panels": [
       {
         "gridPos": {
@@ -41,26 +41,18 @@
       "list": [
         {
           "current": {
-          "text": "1",
-          "value": "1"
+            "text": "1",
+            "value": "1"
           },
-          "description": "",
+          "definition": "SELECT run_id FROM reports_admin WHERE name = 'pylint'",
           "label": "Run ID",
           "name": "run_id",
-          "options": [
-            {
-            "selected": true,
-              "text": "1",
-              "value": "1"
-            },
-            {
-            "selected": false,
-              "text": "2",
-              "value": "2"
-            }
-          ],
-          "query": "1, 2",
-          "type": "custom"
+          "options": [],
+          "query": "SELECT run_id FROM reports_admin WHERE name = 'pylint'",
+          "refresh": 1,
+          "regex": "",
+          "sort": 3,
+          "type": "query"
         }
       ]
     },
