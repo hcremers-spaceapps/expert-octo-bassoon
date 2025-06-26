@@ -43,7 +43,7 @@
         {
           "matcher": {
             "id": "byName",
-            "options": "inputs"
+            "options": "Value"
           },
           "properties": [
             {
@@ -54,7 +54,7 @@
             },
             {
               "id": "custom.inspect",
-              "value": true
+              "value": false
             }
           ]
         },
@@ -72,13 +72,6 @@
         }
       ]
     },
-    "gridPos": {
-      "h": 5,
-      "w": 14,
-      "x": 10,
-      "y": 0
-    },
-    "id": 3,
     "options": {
       "cellHeight": "sm",
       "footer": {
@@ -106,7 +99,7 @@
         },
         "editorMode": "builder",
         "format": "table",
-        "rawSql": "SELECT * FROM backend_pipelinerun ",
+        "rawSql": "SELECT * FROM executions_admin ",
         "refId": "A",
         "sql": {
           "columns": [
@@ -127,9 +120,10 @@
               },
               "type": "groupBy"
             }
-          ]
+          ],
+          "limit": null
         },
-        "table": "backend_pipelinerun"
+        "table": "executions_admin"
       }
     ],
     "title": "Pipeline inputs",
@@ -191,7 +185,7 @@
       {
         "id": "transpose",
         "options": {
-          "firstFieldName": "Input",
+          "firstFieldName": "",
           "restFieldsName": ""
         }
       }
