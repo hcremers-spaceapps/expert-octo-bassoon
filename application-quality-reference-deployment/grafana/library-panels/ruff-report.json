@@ -42,7 +42,7 @@
         {
           "matcher": {
             "id": "byName",
-            "options": "code"
+            "options": "Code"
           },
           "properties": [
             {
@@ -54,19 +54,19 @@
         {
           "matcher": {
             "id": "byName",
-            "options": "cell"
+            "options": "Cell #"
           },
           "properties": [
             {
               "id": "custom.width",
-              "value": 50
+              "value": 60
             }
           ]
         },
         {
           "matcher": {
             "id": "byName",
-            "options": "location"
+            "options": "Location in Cell"
           },
           "properties": [
             {
@@ -78,7 +78,7 @@
         {
           "matcher": {
             "id": "byName",
-            "options": "safe"
+            "options": "Safe?"
           },
           "properties": [
             {
@@ -86,16 +86,27 @@
               "value": 60
             }
           ]
+        },
+        {
+          "matcher": {
+            "id": "byName",
+            "options": "Code"
+          },
+          "properties": [
+            {
+              "id": "links",
+              "value": [
+                {
+                  "targetBlank": true,
+                  "title": "Open documentation for ${__data.fields.Code}",
+                  "url": "https://docs.astral.sh/ruff/rules/${__data.fields.Code}"
+                }
+              ]
+            }
+          ]
         }
       ]
     },
-    "gridPos": {
-      "h": 8,
-      "w": 24,
-      "x": 0,
-      "y": 16
-    },
-    "id": 1138,
     "options": {
       "cellHeight": "sm",
       "footer": {
@@ -124,7 +135,7 @@
         "editorMode": "code",
         "format": "table",
         "rawQuery": true,
-        "rawSql": "SELECT\n  split_part(\n    elem ->> 'filename',\n    '/',\n    array_length(string_to_array(elem ->> 'filename', '/'), 1)\n  ) AS file,\n  elem ->> 'message' AS message,\n  elem ->> 'code' AS code,\n  (elem ->> 'cell') :: int AS cell,\n  'L' || (elem -> 'location' ->> 'row') || 'C' || (elem -> 'location' ->> 'column') || '-L' || (elem -> 'end_location' ->> 'row') || 'C' || (elem -> 'end_location' ->> 'column') AS location,\n  elem -> 'fix' ->> 'message' AS fix,\n  (elem -> 'fix' ->> 'applicability') = 'safe' AS safe\nFROM\n  (\n    SELECT\n      jsonb_array_elements(output :: jsonb) AS elem\n    FROM\n      reports_admin\n    WHERE\n      (\n        name = 'ruff'\n        AND run_id = ${run_id}\n      )\n  ) AS sub;",
+        "rawSql": "SELECT split_part(elem ->> 'filename', '/', array_length(string_to_array(elem ->> 'filename', '/'), 1)) AS \"Notebook File\", elem ->> 'message' AS \"Message\", elem ->> 'code' AS \"Code\", (elem ->> 'cell') :: int AS \"Cell #\", 'L' || (elem -> 'location' ->> 'row') || 'C' || (elem -> 'location' ->> 'column') || '-L' || (elem -> 'end_location' ->> 'row') || 'C' || (elem -> 'end_location' ->> 'column') AS \"Location in Cell\", elem -> 'fix' ->> 'message' AS \"Fix\", (elem -> 'fix' ->> 'applicability') = 'safe' AS \"Safe?\" FROM (SELECT jsonb_array_elements(output :: jsonb) AS elem FROM reports_admin WHERE (name = 'ruff' AND run_id = ${run_id})) AS sub;",
         "refId": "A",
         "sql": {
           "columns": [

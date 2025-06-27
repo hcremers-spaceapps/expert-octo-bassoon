@@ -50,7 +50,7 @@
               "value": [
                 {
                   "title": "Go to report",
-                    "url": "/d/${__data.fields.Tool}-dashboard/${__data.fields.Tool}?${__all_variables}﻿"
+                  "url": "/d/default-${__data.fields.Tool}-report/${__data.fields.Tool}-report?${__all_variables}﻿"
                 }
               ]
             },
@@ -91,7 +91,7 @@
         "format": "table",
         "hide": false,
         "rawQuery": true,
-        "rawSql": "SELECT name AS \"Tool\", created_at AS \"Output creation\", id AS \"Link\" FROM reports_admin WHERE run_id = $run_id LIMIT 50 ",
+        "rawSql": "SELECT name AS \"Tool\", created_at AS \"Output creation\", id AS \"Link\" FROM reports_admin WHERE run_id = $run_id",
         "refId": "A",
         "sql": {
           "columns": [
