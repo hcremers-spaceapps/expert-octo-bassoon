@@ -1,7 +1,7 @@
 {
   "folderUid": "application-quality-service-reports",
   "uid": "pylint-report",
-  "name": "Pylint report",
+  "name": "Pylint Report",
   "kind": 1,
   "type": "table",
   "description": "",
@@ -77,17 +77,6 @@
         }
       ]
     },
-    "gridPos": {
-      "h": 9,
-      "w": 24,
-      "x": 0,
-      "y": 0
-    },
-    "id": 1,
-    "libraryPanel": {
-      "name": "Pylint report",
-      "uid": "cepx84pbevjswe"
-    },
     "options": {
       "cellHeight": "sm",
       "footer": {
@@ -132,7 +121,7 @@
         }
       }
     ],
-    "title": "Pylint report",
+    "title": "Pylint Report",
     "type": "table"
   }
 }

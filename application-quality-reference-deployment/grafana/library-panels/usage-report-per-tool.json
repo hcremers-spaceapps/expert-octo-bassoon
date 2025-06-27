@@ -1,7 +1,7 @@
 {
   "folderUid": "application-quality-service",
   "uid": "usage-report-per-tool",
-  "name": "Usage report per tool",
+  "name": "Usage Report per Tool",
   "kind": 1,
   "type": "barchart",
   "description": "",
@@ -109,17 +109,6 @@
         }
       ]
     },
-    "gridPos": {
-      "h": 8,
-      "w": 12,
-      "x": 12,
-      "y": 8
-    },
-    "id": 6,
-    "libraryPanel": {
-      "name": "Usage report per tool",
-      "uid": "aepu8vflyvhfkb"
-    },
     "options": {
       "barRadius": 0,
       "barWidth": 0.97,
@@ -196,7 +185,7 @@
         "table": "executions"
       }
     ],
-    "title": "Usage report per tool",
+    "title": "Usage Report per Tool",
     "type": "barchart"
   }
 }

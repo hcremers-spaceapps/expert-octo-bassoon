@@ -1,7 +1,7 @@
 {
   "folderUid": "application-quality-service",
   "uid": "pipeline-inputs",
-  "name": "Pipeline inputs",
+  "name": "Pipeline Inputs",
   "kind": 1,
   "type": "table",
   "description": "",
@@ -126,7 +126,7 @@
         "table": "executions_admin"
       }
     ],
-    "title": "Pipeline inputs",
+    "title": "Pipeline Inputs",
     "transformations": [
       {
         "id": "filterByValue",

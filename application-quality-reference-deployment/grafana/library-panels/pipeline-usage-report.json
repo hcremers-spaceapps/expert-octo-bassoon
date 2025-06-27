@@ -1,7 +1,7 @@
 {
   "folderUid": "application-quality-service",
   "uid": "pipeline-usage-report",
-  "name": "Pipeline usage report",
+  "name": "Pipeline Usage Report",
   "kind": 1,
   "type": "table",
   "description": "",
@@ -134,13 +134,6 @@
         }
       ]
     },
-    "gridPos": {
-      "h": 4,
-      "w": 24,
-      "x": 0,
-      "y": 6
-    },
-    "id": 6,
     "options": {
       "cellHeight": "sm",
       "footer": {
@@ -164,7 +157,7 @@
         "editorMode": "code",
         "format": "table",
         "rawQuery": true,
-        "rawSql": "SELECT\n  -- 'Value' AS \"Metric\",\n  usage_report\nFROM\n  executions_admin\nWHERE\n  id = $run_id",
+        "rawSql": "SELECT\n  status,\n  usage_report\nFROM\n  executions_admin\nWHERE\n  id = $run_id",
         "refId": "A",
         "sql": {
           "columns": [
@@ -219,7 +212,7 @@
         "table": "executions_admin"
       }
     ],
-    "title": "Usage report",
+    "title": "Pipeline Usage Report",
     "transformations": [
       {
         "id": "extractFields",
@@ -248,8 +241,31 @@
               "total_disk_megabytes",
               "total_ram_megabyte_hours",
               "max_parallel_ram_megabytes",
-              "Metric"
+              "status"
             ]
+          }
+        }
+      },
+      {
+        "id": "organize",
+        "options": {
+          "excludeByName": {},
+          "includeByName": {},
+          "indexByName": {},
+          "renameByName": {
+            "cores_allowed": "Cores allowed",
+            "elapsed_seconds": "Duration",
+            "finish_time": "Finish time",
+            "max_parallel_cpus": "Max parallel CPUs",
+            "max_parallel_ram_megabytes": "Max parallel RAM",
+            "max_parallel_tasks": "Max parallel tasks",
+            "ram_mb_allowed": "RAM allowed",
+            "start_time": "Start time",
+            "status": "Status",
+            "total_cpu_hours": "CPU hours",
+            "total_disk_megabytes": "Total disk memory usage",
+            "total_ram_megabyte_hours": "Total RAM hours",
+            "total_tasks": "Total tasks"
           }
         }
       },
@@ -257,7 +273,7 @@
         "disabled": true,
         "id": "transpose",
         "options": {
-          "firstFieldName": "Metric"
+          "firstFieldName": ""
         }
       }
     ],

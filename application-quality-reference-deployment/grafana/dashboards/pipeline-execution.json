@@ -126,6 +126,10 @@
     "templating": {
       "list": [
         {
+          "datasource": {
+            "type": "grafana-postgresql-datasource",
+            "uid": "application-quality-db"
+          },
           "definition": "SELECT pipeline_name FROM executions_admin WHERE id = $run_id",
           "hide": 2,
           "label": "Pipeline ID",
@@ -137,6 +141,10 @@
           "type": "query"
         },
         {
+          "datasource": {
+            "type": "grafana-postgresql-datasource",
+            "uid": "application-quality-db"
+          },
           "definition": "SELECT id FROM executions_admin WHERE id IS NOT NULL ",
           "label": "Run ID",
           "name": "run_id",

@@ -1,7 +1,7 @@
 {
   "folderUid": "application-quality-service-reports",
   "uid": "ruff-report",
-  "name": "Ruff report",
+  "name": "Ruff Report",
   "kind": 1,
   "type": "table",
   "description": "",
@@ -145,7 +145,7 @@
         }
       }
     ],
-    "title": "Ruff report",
+    "title": "Ruff Report",
     "type": "table"
   }
 }
