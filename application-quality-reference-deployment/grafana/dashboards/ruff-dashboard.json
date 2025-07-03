@@ -1,4 +1,5 @@
 {
+  "orgId": 1,
   "folderUid": "application-quality-service-reports",
   "overwrite": false,
   "dashboard": {
@@ -11,8 +12,8 @@
         "keepTime": false,
         "tags": [],
         "targetBlank": false,
-        "title": "Pipeline Run ${run_id}",
-        "tooltip": "Go to pipeline run ${run_id} dashboard",
+        "title": "Pipeline Execution ${execution_id}",
+        "tooltip": "Go to pipeline run ${execution_id} dashboard",
         "type": "link",
         "url": "/d/pipeline-execution/pipeline-execution?${__all_values}"
       }
@@ -20,10 +21,25 @@
     "panels": [
       {
         "gridPos": {
-          "h": 10,
+          "h": 6,
           "w": 24,
           "x": 0,
           "y": 0
+        },
+        "id": 2,
+        "libraryPanel": {
+          "name": "Pipeline Execution Report Header",
+          "uid": "pipeline-execution-report-header"
+        },
+        "title": "",
+        "type": "library-panel-ref"
+      },
+      {
+        "gridPos": {
+          "h": 10,
+          "w": 24,
+          "x": 0,
+          "y": 6
         },
         "id": 1,
         "libraryPanel": {
@@ -44,14 +60,59 @@
             "type": "grafana-postgresql-datasource",
             "uid": "application-quality-db"
           },
-          "definition": "SELECT run_id FROM reports_admin WHERE name = 'ruff'",
-          "label": "Run ID",
-          "name": "run_id",
+          "definition": "SELECT id FROM reports_admin WHERE name = 'ruff'",
+          "description": "",
+          "label": "Report ID",
+          "name": "report_id",
           "options": [],
-          "query": "SELECT run_id FROM reports_admin WHERE name = 'ruff'",
+          "query": "SELECT id FROM reports_admin WHERE name = 'ruff'",
           "refresh": 1,
           "regex": "",
           "sort": 4,
+          "type": "query"
+        },
+        {
+          "datasource": {
+            "type": "grafana-postgresql-datasource",
+            "uid": "application-quality-db"
+          },
+          "definition": "SELECT run_id FROM reports_admin WHERE id = $report_id",
+          "hide": 2,
+          "label": "Execution ID",
+          "name": "execution_id",
+          "options": [],
+          "query": "SELECT run_id FROM reports_admin WHERE id = $report_id",
+          "refresh": 1,
+          "regex": "",
+          "sort": 4,
+          "type": "query"
+        },
+        {
+          "datasource": {
+            "type": "grafana-postgresql-datasource",
+            "uid": "application-quality-db"
+          },
+          "definition": "SELECT pipeline_name FROM executions_admin WHERE id = $execution_id",
+          "hide": 2,
+          "name": "pipeline_name",
+          "options": [],
+          "query": "SELECT pipeline_name FROM executions_admin WHERE id = $execution_id",
+          "refresh": 1,
+          "regex": "",
+          "type": "query"
+        },
+        {
+          "datasource": {
+            "type": "grafana-postgresql-datasource",
+            "uid": "application-quality-db"
+          },
+          "definition": "SELECT pipeline_id FROM executions_admin WHERE id = $execution_id",
+          "hide": 2,
+          "name": "pipeline_id",
+          "options": [],
+          "query": "SELECT pipeline_id FROM executions_admin WHERE id = $execution_id",
+          "refresh": 1,
+          "regex": "",
           "type": "query"
         }
       ]

@@ -1,4 +1,5 @@
 {
+  "orgId": 1,
   "folderUid": "application-quality-service",
   "uid": "usage-report-per-tool",
   "name": "Usage Report per Tool",
@@ -72,12 +73,12 @@
         {
           "matcher": {
             "id": "byName",
-            "options": "ram_megabyte_seconds"
+            "options": "ram_megabyte_hours"
           },
           "properties": [
             {
               "id": "unit",
-              "value": "MBs"
+              "value": "decmbytes"
             },
             {
               "id": "color",
@@ -112,7 +113,7 @@
     "options": {
       "barRadius": 0,
       "barWidth": 0.97,
-      "fullHighlight": false,
+      "fullHighlight": true,
       "groupWidth": 0.7,
       "legend": {
         "calcs": [],
@@ -121,7 +122,7 @@
         "showLegend": true
       },
       "orientation": "auto",
-      "showValue": "auto",
+      "showValue": "always",
       "stacking": "none",
       "tooltip": {
         "hideZeros": false,
@@ -135,11 +136,14 @@
     "pluginVersion": "12.0.1",
     "targets": [
       {
-        "datasource": "application-quality-db",
+        "datasource": {
+          "type": "grafana-postgresql-datasource",
+          "uid": "application-quality-db"
+        },
         "editorMode": "code",
         "format": "table",
         "rawQuery": true,
-        "rawSql": "SELECT\n--  e.id AS execution_id,\n  child ->> 'name' AS step_name,\n  (child ->> 'cpu_hours') :: float * 3600 AS cpu_seconds,\n  (child ->> 'elapsed_seconds') :: float AS elapsed_seconds,\n  (child ->> 'ram_megabyte_hours') :: float * 3600 AS ram_megabyte_seconds\nFROM\n  executions_admin e,\n  jsonb_array_elements(e.usage_report :: jsonb -> 'children') AS child\nWHERE\n  e.usage_report IS NOT NULL\n  AND id = $run_id \nLIMIT\n  50;",
+        "rawSql": "SELECT\n--  e.id AS execution_id,\n  child ->> 'name' AS step_name,\n  (child ->> 'cpu_hours') :: float * 3600 AS cpu_seconds,\n  (child ->> 'elapsed_seconds') :: float AS elapsed_seconds,\n  (child ->> 'ram_megabyte_hours') :: float AS ram_megabyte_hours\nFROM\n  executions_admin e,\n  jsonb_array_elements(e.usage_report :: jsonb -> 'children') AS child\nWHERE\n  e.usage_report IS NOT NULL\n  AND id = $execution_id \n  AND (child ->> 'name') NOT LIKE 'clone_%'\n  AND (child ->> 'name') NOT LIKE 'filter_%'\n  AND (child ->> 'name') NOT LIKE 'save_%'\nLIMIT\n  50;",
         "refId": "A",
         "sql": {
           "columns": [
@@ -186,6 +190,19 @@
       }
     ],
     "title": "Usage Report per Tool",
+    "transformations": [
+      {
+        "id": "sortBy",
+        "options": {
+          "fields": {},
+          "sort": [
+            {
+              "field": "step_name"
+            }
+          ]
+        }
+      }
+    ],
     "type": "barchart"
   }
 }

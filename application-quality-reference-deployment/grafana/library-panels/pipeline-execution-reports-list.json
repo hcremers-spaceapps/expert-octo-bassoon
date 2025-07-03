@@ -1,4 +1,5 @@
 {
+  "orgId": 1,
   "folderUid": "application-quality-service",
   "uid": "pipeline-executions-report-list",
   "name": "Pipeline Execution Reports List",
@@ -42,7 +43,7 @@
         {
           "matcher": {
             "id": "byName",
-            "options": "Link"
+            "options": "Report"
           },
           "properties": [
             {
@@ -50,7 +51,7 @@
               "value": [
                 {
                   "title": "Go to report",
-                  "url": "/d/default-${__data.fields.Tool}-report/${__data.fields.Tool}-report?${__all_variables}﻿"
+                  "url": "/d/default-${__data.fields.Tool}-report/${__data.fields.Tool}-report?${__all_variables}&var-report_id=${__data.fields.Report}"
                 }
               ]
             },
@@ -91,7 +92,7 @@
         "format": "table",
         "hide": false,
         "rawQuery": true,
-        "rawSql": "SELECT name AS \"Tool\", created_at AS \"Output creation\", id AS \"Link\" FROM reports_admin WHERE run_id = $run_id",
+        "rawSql": "SELECT name AS \"Tool\", created_at AS \"Created\", id AS \"Report\" FROM reports_admin WHERE run_id = ${execution_id:int}",
         "refId": "A",
         "sql": {
           "columns": [

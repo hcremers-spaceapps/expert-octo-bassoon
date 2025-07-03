@@ -1,4 +1,5 @@
 {
+  "orgId": 1,
   "folderUid": "application-quality-service",
   "uid": "pipeline-executions-timeline",
   "name": "Pipeline Executions Timeline",
@@ -94,7 +95,7 @@
         {
           "matcher": {
             "id": "byName",
-            "options": "Active"
+            "options": "Running"
           },
           "properties": [
             {
@@ -270,8 +271,8 @@
         "format": "table",
         "hide": false,
         "rawQuery": true,
-        "rawSql": "SELECT start_time::date AS \"Date\", COUNT(*) AS \"Active\"\nFROM executions_admin\nWHERE (status = 'active' AND $__timeFilter(start_time))\nGROUP BY start_time::date\nORDER BY start_time::date ASC",
-        "refId": "Active runs",
+        "rawSql": "SELECT start_time::date AS \"Date\", COUNT(*) AS \"Running\" FROM executions_admin WHERE (status = 'running' AND $__timeFilter(start_time)) GROUP BY start_time::date ORDER BY start_time::date ASC",
+        "refId": "Running runs",
         "sql": {
           "columns": [
             {

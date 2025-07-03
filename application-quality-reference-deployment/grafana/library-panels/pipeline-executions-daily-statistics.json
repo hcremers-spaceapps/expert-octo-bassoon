@@ -1,4 +1,5 @@
 {
+  "orgId": 1,
   "folderUid": "application-quality-service",
   "uid": "pipeline-executions-daily-statistics",
   "name": "Pipeline Executions Daily Statistics",
@@ -39,7 +40,41 @@
           ]
         }
       },
-      "overrides": []
+      "overrides": [
+        {
+          "matcher": {
+            "id": "byName",
+            "options": "Starting"
+          },
+          "properties": [
+            {
+              "id": "noValue"
+            }
+          ]
+        },
+        {
+          "matcher": {
+            "id": "byName",
+            "options": "Running"
+          },
+          "properties": [
+            {
+              "id": "noValue"
+            }
+          ]
+        },
+        {
+          "matcher": {
+            "id": "byName",
+            "options": "Failed"
+          },
+          "properties": [
+            {
+              "id": "noValue"
+            }
+          ]
+        }
+      ]
     },
     "options": {
       "cellHeight": "sm",
@@ -65,7 +100,7 @@
         "format": "table",
         "hide": false,
         "rawQuery": true,
-        "rawSql": "SELECT\n  start_time :: date AS \"Date\",\n  COUNT(*) AS \"Total executions\"\nFROM\n  executions_admin \nWHERE\n  $__timeFilter(start_time)\nGROUP BY\n  start_time :: date\nORDER BY\n  start_time :: date ASC",
+        "rawSql": "SELECT start_time :: date AS \"Date\", COUNT(*) AS \"Total executions\" FROM executions_admin WHERE $__timeFilter(start_time) GROUP BY start_time :: date",
         "refId": "Total runs",
         "sql": {
           "columns": [
@@ -281,8 +316,8 @@
         "format": "table",
         "hide": false,
         "rawQuery": true,
-        "rawSql": "SELECT start_time::date AS \"Date\", COUNT(*) AS \"Active\"\nFROM executions_admin \nWHERE (status = 'active' AND $__timeFilter(start_time))\nGROUP BY start_time::date\nORDER BY start_time::date ASC",
-        "refId": "Active runs",
+        "rawSql": "SELECT start_time::date AS \"Date\", COUNT(*) AS \"Running\" FROM executions_admin WHERE (status = 'running' AND $__timeFilter(start_time)) GROUP BY start_time::date ORDER BY start_time::date ASC",
+        "refId": "Running runs",
         "sql": {
           "columns": [
             {
@@ -704,6 +739,18 @@
             }
           ],
           "fields": {}
+        }
+      },
+      {
+        "id": "sortBy",
+        "options": {
+          "fields": {},
+          "sort": [
+            {
+              "desc": true,
+              "field": "Date"
+            }
+          ]
         }
       }
     ],

@@ -1,4 +1,5 @@
 {
+  "orgId": 1,
   "folderUid": "application-quality-service",
   "uid": "pipeline-usage-report",
   "name": "Pipeline Usage Report",
@@ -68,7 +69,7 @@
           "properties": [
             {
               "id": "unit",
-              "value": "decmbytes"
+              "value": "h"
             }
           ]
         },
@@ -131,6 +132,25 @@
               "value": "dateTimeAsIsoNoDateIfToday"
             }
           ]
+        },
+        {
+          "matcher": {
+            "id": "byName",
+            "options": "Max parallel RAM [MB]"
+          },
+          "properties": [
+            {
+              "id": "custom.width",
+              "value": 182
+            }
+          ]
+        },
+        {
+          "matcher": {
+            "id": "byName",
+            "options": "status"
+          },
+          "properties": []
         }
       ]
     },
@@ -157,7 +177,7 @@
         "editorMode": "code",
         "format": "table",
         "rawQuery": true,
-        "rawSql": "SELECT\n  status,\n  usage_report\nFROM\n  executions_admin\nWHERE\n  id = $run_id",
+        "rawSql": "SELECT status, usage_report FROM executions_admin WHERE id = $execution_id",
         "refId": "A",
         "sql": {
           "columns": [
@@ -225,55 +245,53 @@
         }
       },
       {
-        "id": "filterFieldsByName",
-        "options": {
-          "include": {
-            "names": [
-              "start_time",
-              "finish_time",
-              "total_tasks",
-              "cores_allowed",
-              "ram_mb_allowed",
-              "elapsed_seconds",
-              "total_cpu_hours",
-              "max_parallel_cpus",
-              "max_parallel_tasks",
-              "total_disk_megabytes",
-              "total_ram_megabyte_hours",
-              "max_parallel_ram_megabytes",
-              "status"
-            ]
-          }
-        }
-      },
-      {
         "id": "organize",
         "options": {
-          "excludeByName": {},
+          "excludeByName": {
+            "children": true,
+            "cores_allowed": false,
+            "finish_time": false,
+            "max_parallel_tasks": false,
+            "start_time": false,
+            "total_disk_megabytes": false,
+            "total_tasks": false,
+            "usage_report": true
+          },
           "includeByName": {},
-          "indexByName": {},
+          "indexByName": {
+            "children": 1,
+            "cores_allowed": 6,
+            "elapsed_hours": 7,
+            "elapsed_seconds": 9,
+            "finish_time": 4,
+            "max_parallel_cpus": 10,
+            "max_parallel_ram_megabytes": 12,
+            "max_parallel_tasks": 11,
+            "ram_mb_allowed": 8,
+            "start_time": 3,
+            "status": 2,
+            "total_cpu_hours": 13,
+            "total_disk_megabytes": 14,
+            "total_ram_megabyte_hours": 15,
+            "total_tasks": 5,
+            "usage_report": 0
+          },
           "renameByName": {
-            "cores_allowed": "Cores allowed",
-            "elapsed_seconds": "Duration",
+            "cores_allowed": "Cores",
+            "elapsed_hours": "Elapsed [h]",
+            "elapsed_seconds": "Duration [s]",
             "finish_time": "Finish time",
             "max_parallel_cpus": "Max parallel CPUs",
-            "max_parallel_ram_megabytes": "Max parallel RAM",
+            "max_parallel_ram_megabytes": "Max parallel RAM [MB]",
             "max_parallel_tasks": "Max parallel tasks",
-            "ram_mb_allowed": "RAM allowed",
+            "ram_mb_allowed": "RAM allowed [MB]",
             "start_time": "Start time",
             "status": "Status",
-            "total_cpu_hours": "CPU hours",
-            "total_disk_megabytes": "Total disk memory usage",
-            "total_ram_megabyte_hours": "Total RAM hours",
-            "total_tasks": "Total tasks"
+            "total_cpu_hours": "CPU [h]ours",
+            "total_disk_megabytes": "Total disk [MB]",
+            "total_ram_megabyte_hours": "Total RAM [MB/h]",
+            "total_tasks": "Tasks"
           }
-        }
-      },
-      {
-        "disabled": true,
-        "id": "transpose",
-        "options": {
-          "firstFieldName": ""
         }
       }
     ],

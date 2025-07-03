@@ -1,4 +1,5 @@
 {
+  "orgId": 1,
   "folderUid": "application-quality-service",
   "overwrite": false,
   "dashboard": {
@@ -19,8 +20,6 @@
       ]
     },
     "editable": true,
-    "fiscalYearStartMonth": 0,
-    "graphTooltip": 0,
     "links": [],
     "panels": [
       {
@@ -70,6 +69,7 @@
       }
     ],
     "preload": false,
+    "refresh": "10s",
     "schemaVersion": 41,
     "tags": [],
     "templating": {
@@ -82,8 +82,6 @@
     "timepicker": {},
     "timezone": "browser",
     "title": "Pipeline Executions",
-    "id": null,
-    "uid": "pipeline-executions",
-    "version": 1
+    "uid": "pipeline-executions"
   }
 }

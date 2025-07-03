@@ -1,4 +1,5 @@
 {
+  "orgId": 1,
   "folderUid": "application-quality-service-reports",
   "uid": "ruff-report",
   "name": "Ruff Report",
@@ -24,16 +25,13 @@
           "inspect": false
         },
         "mappings": [],
+        "noValue": "This report is empty",
         "thresholds": {
           "mode": "absolute",
           "steps": [
             {
               "color": "green",
               "value": null
-            },
-            {
-              "color": "red",
-              "value": 80
             }
           ]
         }
@@ -60,6 +58,9 @@
             {
               "id": "custom.width",
               "value": 60
+            },
+            {
+              "id": "noValue"
             }
           ]
         },
@@ -84,6 +85,9 @@
             {
               "id": "custom.width",
               "value": 60
+            },
+            {
+              "id": "noValue"
             }
           ]
         },
@@ -102,6 +106,17 @@
                   "url": "https://docs.astral.sh/ruff/rules/${__data.fields.Code}"
                 }
               ]
+            }
+          ]
+        },
+        {
+          "matcher": {
+            "id": "byName",
+            "options": "Fix"
+          },
+          "properties": [
+            {
+              "id": "noValue"
             }
           ]
         }
@@ -135,7 +150,7 @@
         "editorMode": "code",
         "format": "table",
         "rawQuery": true,
-        "rawSql": "SELECT split_part(elem ->> 'filename', '/', array_length(string_to_array(elem ->> 'filename', '/'), 1)) AS \"Notebook File\", elem ->> 'message' AS \"Message\", elem ->> 'code' AS \"Code\", (elem ->> 'cell') :: int AS \"Cell #\", 'L' || (elem -> 'location' ->> 'row') || 'C' || (elem -> 'location' ->> 'column') || '-L' || (elem -> 'end_location' ->> 'row') || 'C' || (elem -> 'end_location' ->> 'column') AS \"Location in Cell\", elem -> 'fix' ->> 'message' AS \"Fix\", (elem -> 'fix' ->> 'applicability') = 'safe' AS \"Safe?\" FROM (SELECT jsonb_array_elements(output :: jsonb) AS elem FROM reports_admin WHERE (name = 'ruff' AND run_id = ${run_id})) AS sub;",
+        "rawSql": "SELECT split_part(elem ->> 'filename', '/', array_length(string_to_array(elem ->> 'filename', '/'), 1)) AS \"Notebook File\", elem ->> 'message' AS \"Message\", elem ->> 'code' AS \"Code\", (elem ->> 'cell') :: int AS \"Cell #\", 'L' || (elem -> 'location' ->> 'row') || 'C' || (elem -> 'location' ->> 'column') || '-L' || (elem -> 'end_location' ->> 'row') || 'C' || (elem -> 'end_location' ->> 'column') AS \"Location in Cell\", elem -> 'fix' ->> 'message' AS \"Fix\", (elem -> 'fix' ->> 'applicability') = 'safe' AS \"Safe?\" FROM (SELECT jsonb_array_elements(output :: jsonb) AS elem FROM reports_admin WHERE id = $report_id) AS sub;",
         "refId": "A",
         "sql": {
           "columns": [
